@@ -35,7 +35,6 @@ public class User {
     
     @NotBlank(message = "Ingreso de Password obligatorio")
     @Size(min = 8, max = 20, message = "La contraseña debe contener como minimo 8 caracteres y maximo 20")
-    @JsonIgnore
     @Value("${db.password}")
     private String password;
 

@@ -2,6 +2,7 @@ package com.informatorio.Carrito.service;
 
 import com.informatorio.Carrito.entity.User;
 import com.informatorio.Carrito.repository.UserRepository;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,13 @@ public class UserService {
        user.setEmployee(userToUpdate.isEmployee());
        return userRepository.save(user);
        
+    }
+    
+    public List<User> userByCity(String name) { 
+        return userRepository.findUserByCity(name); 
+    }
+
+    public List<User> findCreationDateAfter(LocalDate date) {
+        return userRepository.findCreationDateAfter(date);
     }
 }

@@ -2,7 +2,9 @@ package com.informatorio.Carrito.controller;
 
 import com.informatorio.Carrito.entity.User;
 import com.informatorio.Carrito.service.UserService;
+import java.time.LocalDate;
 import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -49,5 +52,15 @@ public class UserController {
     public User updateUserById(@PathVariable("id") Long userId, @RequestBody User userToUpdate){
         User user = userService.findUserById(userId);
         return userService.updateUser(user ,userToUpdate);
+    }
+    
+    @GetMapping("/city")
+    public ResponseEntity<List<User>> getUserFromCity(@RequestParam("name") String name) {
+        return ResponseEntity.ok(userService.userByCity(name));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<User>> getUserFromDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+        return ResponseEntity.ok(userService.findCreationDateAfter(date)); 
     }
 }
